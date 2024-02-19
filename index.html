@@ -56,21 +56,38 @@
     function convertDescriptionToSpeech() {
         var descriptionText = document.getElementById('description').textContent;
 
-        // Create a new SpeechSynthesisUtterance object
-        var utterance = new SpeechSynthesisUtterance(descriptionText);
+        // Check if Speech Synthesis API is supported
+        if ('speechSynthesis' in window) {
+            // Get the available voices
+            var voices = window.speechSynthesis.getVoices();
 
-        // Set the voice using the selected option
-        utterance.lang = 'ta-IN';
-        utterance.voiceURI = 'Google தமிழ்';
-        
-        // Optionally, set the pitch and rate
-        // utterance.pitch = 1;
-        // utterance.rate = 1;
+            // Find the voice with the desired language
+            var voice = voices.find(function(voice) {
+                return voice.lang === 'ta-IN';
+            });
 
-        // Trigger the speech synthesis
-        window.speechSynthesis.speak(utterance);
+            if (voice) {
+                // Create a new SpeechSynthesisUtterance object
+                var utterance = new SpeechSynthesisUtterance(descriptionText);
+
+                // Set the voice
+                utterance.voice = voice;
+
+                // Optionally, set the pitch and rate
+                // utterance.pitch = 1;
+                // utterance.rate = 1;
+
+                // Trigger the speech synthesis
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.error('Voice not found for the specified language.');
+            }
+        } else {
+            console.error('Speech Synthesis API is not supported in this browser.');
+        }
     }
 </script>
 
 </body>
 </html>
+

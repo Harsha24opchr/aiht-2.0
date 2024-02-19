@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Text-to-Speech</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto; /* Added to center the image */
+        }
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        .voice-icon {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h2 class="text-center mb-4">Crop description using AI</h2>
+            
+            <!-- Image and Description -->
+            <div class="text-center">
+                <div class="img-container">
+                    <img src="https://5.imimg.com/data5/ST/QW/MY-38700875/fresh-wheat-crop.jpg" alt="Cropped Image" class="img-fluid mb-3">
+                </div>
+                <p id="description">கோதுமை என்பது அழகிய பருத்தி வகையில் ஒரு தாவரமாகும். இது உலகின் அக்கறைகளில் பல நாடுகளில் விளங்குகின்றது. கோதுமை தாவரம் என்பது உடைக்கும் ஆரோக்கியத்திற்கு மிகவும் பயன்படுகிறது. இதன் பல்வேறு உபயோகங்கள் உள்ளன, குழந்தைகளுக்கு உணவாக, பொருளாக, அனைத்து வகைகளிலும் உபயோகப்படுகின்றது.</p>
+                <button class="btn btn-primary" onclick="convertDescriptionToSpeech()">Convert to Speech</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function convertDescriptionToSpeech() {
+        var descriptionText = document.getElementById('description').textContent;
+
+        // Create a new SpeechSynthesisUtterance object
+        var utterance = new SpeechSynthesisUtterance(descriptionText);
+
+        // Set the voice using the selected option
+        utterance.lang = 'ta-IN';
+        utterance.voiceURI = 'Google தமிழ்';
+        
+        // Optionally, set the pitch and rate
+        // utterance.pitch = 1;
+        // utterance.rate = 1;
+
+        // Trigger the speech synthesis
+        window.speechSynthesis.speak(utterance);
+    }
+</script>
+
+</body>
+</html>
